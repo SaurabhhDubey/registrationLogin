@@ -1,4 +1,30 @@
+import { useState } from "react";
+import { registerUser } from "../api/AuthApi";
+
+
 const Registration = () => {
+
+
+const [username , setUsername]= useState("");
+const [email , setEmail]= useState("");
+const [password , setPassword]= useState("");
+const [confirmPassword , setconfirmPassword]= useState("");
+const signup = async()=>{
+      if(password!=confirmPassword){
+        alert("Password mismatch")
+        return
+      }}
+
+const handlechange = async (e)=>{
+  e.preventDefault();
+  const result = await registerUser(username , email , password);
+  console.log(result);
+  
+};
+
+
+
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg">
@@ -7,7 +33,7 @@ const Registration = () => {
           Create Account
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handlechange}>
 
           {/* Full Name */}
           <div>
@@ -16,7 +42,9 @@ const Registration = () => {
             </label>
             <input
               type="text"
-              placeholder="John Doe"
+              name = "username"
+              placeholder="Harry Potter"
+              onChange={(e)=>setUsername(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -28,7 +56,9 @@ const Registration = () => {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="example@gmail.com"
+              onChange={(e)=>setEmail(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -40,7 +70,8 @@ const Registration = () => {
             </label>
             <input
               type="tel"
-              placeholder="9876543210"
+              placeholder="1234567890"
+              name="number"
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -50,7 +81,8 @@ const Registration = () => {
             <label className="block text-sm font-medium mb-1">
               Gender
             </label>
-            <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" 
+            name="gender">
               <option>Select</option>
               <option>Male</option>
               <option>Female</option>
@@ -66,6 +98,8 @@ const Registration = () => {
             <input
               type="password"
               placeholder="••••••••"
+              name="password"
+              onChange={(e)=>setPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -78,13 +112,15 @@ const Registration = () => {
             <input
               type="password"
               placeholder="••••••••"
+              name="confirmPassword"
+              onChange={(e)=>setconfirmPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
 
           {/* Terms */}
           <div className="flex items-center gap-2">
-            <input type="checkbox" />
+            <input type="checkbox" name="checkbox" />
             <span className="text-sm">
               I agree to the Terms & Conditions
             </span>
@@ -93,6 +129,7 @@ const Registration = () => {
           {/* Submit */}
           <button
             type="submit"
+            onClick={signup}
             className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
           >
             Register
