@@ -9,6 +9,8 @@ const [username , setUsername]= useState("");
 const [email , setEmail]= useState("");
 const [password , setPassword]= useState("");
 const [confirmPassword , setconfirmPassword]= useState("");
+const [gender , setGender]= useState("");
+const [phone , setPhone ]= useState("");
 const signup = async()=>{
       if(password!=confirmPassword){
         alert("Password mismatch")
@@ -17,7 +19,7 @@ const signup = async()=>{
 
 const handlechange = async (e)=>{
   e.preventDefault();
-  const result = await registerUser(username , email , password);
+  const result = await registerUser(username , email , password , phone , gender);
   console.log(result);
   
 };
@@ -71,7 +73,8 @@ const handlechange = async (e)=>{
             <input
               type="tel"
               placeholder="1234567890"
-              name="number"
+              name="phone"
+              onChange={(e)=>setPhone(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -82,11 +85,14 @@ const handlechange = async (e)=>{
               Gender
             </label>
             <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" 
-            name="gender">
-              <option>Select</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
+            name="gender"
+            onChange={(e)=>setGender(e.target.value)}
+            value={gender}
+            >
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
             </select>
           </div>
 
