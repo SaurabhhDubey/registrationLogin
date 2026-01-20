@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { registerUser } from "../api/AuthApi";
+import { useNavigate } from "react-router-dom";
 
 
 const Registration = () => {
 
+  const navigate = useNavigate();
 
 const [username , setUsername]= useState("");
 const [email , setEmail]= useState("");
@@ -145,7 +147,7 @@ const handlechange = async (e)=>{
 
         <p className="text-sm text-center mt-4">
           Already have an account?{" "}
-          <span className="text-blue-600 cursor-pointer hover:underline">
+          <span className="text-blue-600 cursor-pointer hover:underline" onClick={()=>navigate("/login")}>
             Login
           </span>
         </p>
