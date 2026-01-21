@@ -1,8 +1,22 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../api/AuthApi.js";
 
 
 const Login = () => {
   const navigate = useNavigate();
+
+const [email , setEmail]= useState("");
+const [password , setPassword]= useState("");
+
+const handleChange = async(e)=>{e.prevenDefault();
+  const result = await loginUser(email , password);
+  console.log(result);
+}
+
+
+
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg">
@@ -11,7 +25,7 @@ const Login = () => {
           Login
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleChange}>
 
           {/* Email */}
           <div>
@@ -20,6 +34,8 @@ const Login = () => {
             </label>
             <input
               type="email"
+              name = "email"
+              onChange={(e)=> setEmail(e.target.value)}
               placeholder="example@gmail.com"
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
@@ -33,6 +49,8 @@ const Login = () => {
             <input
               type="password"
               placeholder="••••••••"
+              name = "password"
+              onChange={(e)=>setPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>

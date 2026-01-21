@@ -32,14 +32,14 @@ const login = async (req, res) => {
         const userCheck = await User.findOne({ email });
         if (!userCheck) { return res.status(400).json({ message: "user not registered" }) };
         const isMatch = await bcrypt.compare(password, userCheck.password);
-        if (!isMatch) { return res.status(400).json({ message: "invalid password" }) };
-        const token = jwt.sign({ id: user._Id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-        return res.status(201).json({ message: "login successfully", token });
+        if (!isMatch) { return res.status(401).json({ message: "invalid password" }) };
+        const token = jwt.sign({ id: userCheck._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+        return res.status(200).json({ message: "login successfully", token });
     }
 
     catch (error) {
-        res.status(401).json({ message: "login error:", error });
+        res.status(401).json({ message: "login error", error: error.message });
     }
 }
 
-export { register, login };
+export { register , login };
